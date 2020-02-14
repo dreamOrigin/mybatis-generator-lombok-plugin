@@ -22,11 +22,26 @@ public class CommentPlugin extends PluginAdapter {
 
     @Override
     public boolean modelBaseRecordClassGenerated(TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
+        this.classComment(topLevelClass, introspectedTable);
+        return true;
+    }
+
+    /**
+     *  设置类上的注释(描述)
+     * @param topLevelClass
+     * @param introspectedTable
+     */
+    public void classComment(TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
         topLevelClass.getJavaDocLines().clear();
         topLevelClass.addJavaDocLine("/**");
         topLevelClass.addJavaDocLine(" * Table: " + introspectedTable.getFullyQualifiedTable());
+        topLevelClass.addJavaDocLine(" * @description ");
+        topLevelClass.addJavaDocLine(" * @author gl");
+        topLevelClass.addJavaDocLine(" * @date " + simpleDateFormat.format(new Date()));
         topLevelClass.addJavaDocLine(" */");
-        return true;
+        topLevelClass.addJavaDocLine("");
     }
 
     @Override
